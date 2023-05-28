@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RectangleSearchAPI</name>
+    </assembly>
+    <members>
+        <member name="M:RectangleSearchAPI.Controllers.ErrorController.Error">
+            <summary>
+            Log an internal error
+            </summary>
+            <returns>Context, Stack Trace and Error Messge</returns>
+        </member>
+        <member name="M:RectangleSearchAPI.Controllers.RectangleController.GetRectangles(System.Int32)">
+            <summary>
+            Returns all the retangles.
+            </summary>
+            <returns>List of all the rectangles</returns>
+        </member>
+        <member name="M:RectangleSearchAPI.Controllers.RectangleController.GetRectangle(System.Guid)">
+            <summary>
+            Search a rectangle.
+            </summary>
+            <param name="id">Rectangle ID</param>
+            <returns>The Rectangle with the ID</returns>
+        </member>
+        <member name="M:RectangleSearchAPI.Controllers.RectangleController.AddRectangle(RectangleSearchAPI.Logic.CoordinatesPair)">
+            <summary>
+            Save a rectangle.
+            </summary>
+            <param name="coordinatesArray">The Coordinate array, just 2 coordinates</param>
+            <returns>The created rectangle</returns>
+        </member>
+        <member name="M:RectangleSearchAPI.Data.RectangleSearchAPIDbContext.FindRectangleAsync(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:RectangleSearchAPI.Exceptions.ItemNotFoundException"></exception>
+        </member>
+        <member name="T:RectangleSearchAPI.Migrations.InitialMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.InitialMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.InitialMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.InitialMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
