@@ -1,22 +1,25 @@
-﻿using Newtonsoft.Json;
-using RectangleSearchAPI.Logic;
+﻿using RectangleSearchAPI.Logic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RectangleSearchAPI.Models
 {
-    public record CoordinateModel: Coordinate
+    public class CoordinateModel: Coordinate
     {
-        [Required]
         public Guid Id { get; set; }
-        public RectangleModel Rectangle { get; set; }
 
-        public CoordinateModel(double x, double y, RectangleModel rectangle)
+        [JsonIgnore]
+        public RectangleModel Rectangle { get; set; }
+        public CoordinateModel(double x, double y)
         {
             X= x;
             Y= y;
-            Rectangle = rectangle;
+            Rectangle = new RectangleModel();
         }
 
-
+        public CoordinateModel(RectangleModel rectangle)
+        {
+            Rectangle = rectangle;
+        }
     }
 }

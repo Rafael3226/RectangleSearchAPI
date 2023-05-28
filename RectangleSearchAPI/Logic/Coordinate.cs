@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RectangleSearchAPI.Logic
 {
-    public record Coordinate : ICoordinate
+    public class Coordinate
     {
         [Required]
         public double X { get; set; }

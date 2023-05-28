@@ -38,16 +38,40 @@
             <returns></returns>
             <exception cref="T:RectangleSearchAPI.Exceptions.ItemNotFoundException"></exception>
         </member>
-        <member name="T:RectangleSearchAPI.Migrations.InitialMigration">
+        <member name="T:RectangleSearchAPI.Migrations.FirtsMigration">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.InitialMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations.FirtsMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.InitialMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations.FirtsMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.InitialMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations.FirtsMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:RectangleSearchAPI.Migrations.Changerelationstowithmany">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.Changerelationstowithmany.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.Changerelationstowithmany.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.Changerelationstowithmany.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
     </members>

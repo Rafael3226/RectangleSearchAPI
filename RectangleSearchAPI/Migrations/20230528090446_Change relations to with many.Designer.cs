@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RectangleSearchAPI.Data;
 
@@ -11,9 +12,11 @@ using RectangleSearchAPI.Data;
 namespace RectangleSearchAPI.Migrations
 {
     [DbContext(typeof(RectangleSearchAPIDbContext))]
-    partial class RectangleSearchAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528090446_Change relations to with many")]
+    partial class Changerelationstowithmany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,6 +31,9 @@ namespace RectangleSearchAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("RectangleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<double>("X")
                         .HasColumnType("float");
 
@@ -35,6 +41,8 @@ namespace RectangleSearchAPI.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RectangleId");
 
                     b.ToTable("Coordinates");
                 });
@@ -58,6 +66,17 @@ namespace RectangleSearchAPI.Migrations
                     b.HasIndex("TopLeftId");
 
                     b.ToTable("Rectangles");
+                });
+
+            modelBuilder.Entity("RectangleSearchAPI.Models.CoordinateModel", b =>
+                {
+                    b.HasOne("RectangleSearchAPI.Models.RectangleModel", "Rectangle")
+                        .WithMany()
+                        .HasForeignKey("RectangleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rectangle");
                 });
 
             modelBuilder.Entity("RectangleSearchAPI.Models.RectangleModel", b =>

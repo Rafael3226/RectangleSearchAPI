@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RectangleSearchAPI.Data;
 using RectangleSearchAPI.Exceptions;
 using RectangleSearchAPI.Logic;
@@ -60,33 +61,22 @@ namespace RectangleSearchAPI.Controllers
         #region POST Actions
 
         /// <summary>
-        /// Save a rectangle.
+        /// 
         /// </summary>
-        /// <param name="coordinatesArray">The Coordinate array, just 2 coordinates</param>
-        /// <returns>The created rectangle</returns>
+        /// <param name="coordinates"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        public async Task<IActionResult> AddRectangle(CoordinatesPair coordinatesArray)
+        public async Task<IActionResult> AddRectangle(CoordinatesPair coordinates)
         {
             try {
-                Coordinate[] cordinates = coordinatesArray.Coordinates;
-                Rectangle rectangle = new Rectangle(cordinates);
-
-                CoordinateModel topLeft = rectangle.getTopLeft();
-                CoordinateModel bottomRight = rectangle.getBottomRight();
-
-                dbContext.AddCoordinatesRangeAsync(topLeft, bottomRight);
-
-                RectangleModel rectangleModel = new RectangleModel(topLeft, bottomRight);
-
+                RectangleModel rectangleModel = coordinates.ToRectangleModel();
                 dbContext.AddRectangleAsync(rectangleModel);
                 await dbContext.SaveChangesAsync();
 
-                RectangleResponse response = new RectangleResponse(rectangleModel.Id, topLeft, bottomRight);
-
-                string resourceUri = Url.Action("GetRectangle", new { id = response.RectangleId }) ?? string.Empty;
-                return Created(resourceUri, response);
+                string resourceUri = Url.Action("GetRectangle", new { id = rectangleModel.Id }) ?? string.Empty;
+                return Created(resourceUri, rectangleModel);
             }
             catch(ArgumentException ex)
             {

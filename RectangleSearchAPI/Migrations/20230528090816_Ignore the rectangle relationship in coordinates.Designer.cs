@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RectangleSearchAPI.Data;
 
@@ -11,9 +12,11 @@ using RectangleSearchAPI.Data;
 namespace RectangleSearchAPI.Migrations
 {
     [DbContext(typeof(RectangleSearchAPIDbContext))]
-    partial class RectangleSearchAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528090816_Ignore the rectangle relationship in coordinates")]
+    partial class Ignoretherectanglerelationshipincoordinates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

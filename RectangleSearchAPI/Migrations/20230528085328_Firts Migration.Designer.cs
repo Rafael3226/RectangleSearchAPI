@@ -12,8 +12,8 @@ using RectangleSearchAPI.Data;
 namespace RectangleSearchAPI.Migrations
 {
     [DbContext(typeof(RectangleSearchAPIDbContext))]
-    [Migration("20230528072122_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20230528085328_Firts Migration")]
+    partial class FirtsMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,12 +51,45 @@ namespace RectangleSearchAPI.Migrations
                     b.Property<Guid>("BottomRightId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("TopLeftCoordinateId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("TopLeftId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BottomRightId")
+                        .IsUnique();
+
+                    b.HasIndex("TopLeftCoordinateId");
+
                     b.ToTable("Rectangles");
+                });
+
+            modelBuilder.Entity("RectangleSearchAPI.Models.RectangleModel", b =>
+                {
+                    b.HasOne("RectangleSearchAPI.Models.CoordinateModel", "BottomRightCoordinate")
+                        .WithOne("Rectangle")
+                        .HasForeignKey("RectangleSearchAPI.Models.RectangleModel", "BottomRightId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("RectangleSearchAPI.Models.CoordinateModel", "TopLeftCoordinate")
+                        .WithMany()
+                        .HasForeignKey("TopLeftCoordinateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BottomRightCoordinate");
+
+                    b.Navigation("TopLeftCoordinate");
+                });
+
+            modelBuilder.Entity("RectangleSearchAPI.Models.CoordinateModel", b =>
+                {
+                    b.Navigation("Rectangle")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

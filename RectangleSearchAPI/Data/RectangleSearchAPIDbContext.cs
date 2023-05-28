@@ -13,15 +13,23 @@ namespace RectangleSearchAPI.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CoordinateModel>().HasKey(c => c.Id);
-            modelBuilder.Entity<RectangleModel>().HasKey(r => r.Id);
-            // Configure the one-to-one relationship
-            /*modelBuilder.Entity<RectangleModel>()
-                .HasOne(r => r.TopLeftId)
-                .WithOne(c => c.Rectangle)
-                .HasForeignKey<Rectangle>(r => r.CoordinatesId);*/
+           base.OnModelCreating(modelBuilder);
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<RectangleModel>()
+                .HasOne(r => r.TopLeftCoordinate)
+                .WithMany()
+                .HasForeignKey(r => r.TopLeftId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<RectangleModel>()
+                .HasOne(r => r.BottomRightCoordinate)
+                .WithMany()
+                .HasForeignKey(r => r.BottomRightId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Ignore the existing relationship
+            modelBuilder.Entity<CoordinateModel>()
+                .Ignore(c => c.Rectangle);
         }
 
         public async Task<IEnumerable<RectangleModel>> GetRectanglesAsync(int count)
@@ -44,13 +52,15 @@ namespace RectangleSearchAPI.Data
             return rectangle;
         }
 
-        public async void AddCoordinatesRangeAsync(params CoordinateModel[] coordinates)
+        private async void AddCoordinatesRangeAsync(params CoordinateModel[] coordinates)
         {
             await Coordinates.AddRangeAsync(coordinates);
         }
 
         public async void AddRectangleAsync(RectangleModel rectangle)
         {
+            var (topLeftCoordinate, bottomRightCoordinate) = rectangle;
+            AddCoordinatesRangeAsync(topLeftCoordinate, bottomRightCoordinate);
             await Rectangles.AddAsync(rectangle);
         }
     }

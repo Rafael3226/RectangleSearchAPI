@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RectangleSearchAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class FirtsMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,22 +30,45 @@ namespace RectangleSearchAPI.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TopLeftId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BottomRightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    BottomRightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TopLeftCoordinateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rectangles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rectangles_Coordinates_BottomRightId",
+                        column: x => x.BottomRightId,
+                        principalTable: "Coordinates",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Rectangles_Coordinates_TopLeftCoordinateId",
+                        column: x => x.TopLeftCoordinateId,
+                        principalTable: "Coordinates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rectangles_BottomRightId",
+                table: "Rectangles",
+                column: "BottomRightId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rectangles_TopLeftCoordinateId",
+                table: "Rectangles",
+                column: "TopLeftCoordinateId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Coordinates");
+                name: "Rectangles");
 
             migrationBuilder.DropTable(
-                name: "Rectangles");
+                name: "Coordinates");
         }
     }
 }
