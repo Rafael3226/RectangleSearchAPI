@@ -30,6 +30,14 @@ namespace RectangleSearchAPI.Data
 
             return rectangles;
         }
+        public async Task<ICollection<Rectangle>> GetRectanglesAsync()
+        {
+            ICollection<Rectangle> rectangles = await Rectangles
+                .Include(r => r.Coordinates)
+                .ToListAsync();
+
+            return rectangles;
+        }
 
         public async Task<Rectangle> FindRectangleAsync(Guid id)
         {

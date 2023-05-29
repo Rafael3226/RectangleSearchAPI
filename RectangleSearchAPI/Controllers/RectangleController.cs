@@ -23,7 +23,7 @@ namespace RectangleSearchAPI.Controllers
         #region GET Actions
 
         /// <summary>
-        /// Returns all the retangles.
+        /// Returns all the rectangles.
         /// </summary>
         /// <returns>List of all the rectangles</returns>
         [HttpGet]

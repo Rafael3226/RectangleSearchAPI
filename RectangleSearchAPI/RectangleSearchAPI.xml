@@ -12,7 +12,7 @@
         </member>
         <member name="M:RectangleSearchAPI.Controllers.RectangleController.GetRectangles(System.Int32)">
             <summary>
-            Returns all the retangles.
+            Returns all the rectangles.
             </summary>
             <returns>List of all the rectangles</returns>
         </member>
@@ -35,6 +35,13 @@
             Update all the values of a rectangle.
             </summary>
             <param name="rectangleRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RectangleSearchAPI.Controllers.RectangleController.DeleteRectangle(System.Guid)">
+            <summary>
+            Delete a Rectangle
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:RectangleSearchAPI.Migrations._1InitialMigration">

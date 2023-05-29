@@ -22,7 +22,7 @@ namespace RectangleSearchAPI.DTOs.Response
             ICollection<RectangleResponse> rectangleResponses= new List<RectangleResponse>();
             foreach (Rectangle rectangle in rectangles)
             {
-                rectangleResponses.Add(RectangleResponse.FromRectangle(rectangle));
+                rectangleResponses.Add(FromRectangle(rectangle));
             }
             return rectangleResponses;
         }
