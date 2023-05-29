@@ -11,6 +11,12 @@ namespace RectangleSearchAPI.DTOs.Request
         [MaxLength(4)]
         [MinLength(4)]
         public ICollection<CoordinateRequest> Coordinates { get; set; }
+        
+        public RectangleRequest()
+        {
+            Name= string.Empty;
+            Coordinates = new List<CoordinateRequest>();
+        }
 
         public Rectangle ToRectangle()
         {

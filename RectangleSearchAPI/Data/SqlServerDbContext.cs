@@ -6,8 +6,8 @@ namespace RectangleSearchAPI.Data
 {
     public class SqlServerDbContext: DbContext
     {
-        private DbSet<Coordinate> Coordinates { get; set; }
-        private DbSet<Rectangle>  Rectangles{ get; set; }
+        public DbSet<Coordinate> Coordinates { get; set; }
+        public DbSet<Rectangle>  Rectangles{ get; set; }
         public SqlServerDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -33,11 +33,13 @@ namespace RectangleSearchAPI.Data
 
         public async Task<Rectangle> FindRectangleAsync(Guid id)
         {
-            Rectangle? rectangle = await Rectangles.Include(r => r.Coordinates).FirstOrDefaultAsync(r => r.Id == id);
+            // Rectangle? rectangle = await Rectangles.Include(r => r.Coordinates).FirstOrDefaultAsync(r => r.Id == id);
+            Rectangle? rectangle = await Rectangles.FindAsync(id);
             if (rectangle == null)
             {
                 throw new ItemNotFoundException($"The Rectangle with id: {id} was not found");
             }
+            rectangle.Coordinates = await Coordinates.Where(c=> c.IdRectangle == id).ToListAsync();
             return rectangle;
         }
 
@@ -53,5 +55,10 @@ namespace RectangleSearchAPI.Data
             rectangle.Coordinates= newRectangle.Coordinates;
         }
 
+        public async void DeleteRectangleAsync(Guid id)
+        {
+            Rectangle rectangle = await FindRectangleAsync(id);
+            Rectangles.Remove(rectangle);
+        }
     }
 }

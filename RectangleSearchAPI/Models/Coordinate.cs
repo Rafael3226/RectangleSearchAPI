@@ -12,6 +12,21 @@ namespace RectangleSearchAPI.Models
         public Guid IdRectangle { get; set; }
         
         public Rectangle Rectangle { get; set; }
-        
+
+        public Coordinate(double x, double y, Rectangle rectangle)
+        {
+            X = x;
+            Y = y;
+            IdRectangle = rectangle.Id;
+            Rectangle = rectangle;
+        }
+
+        public Coordinate()
+        {
+            Id= Guid.Empty;
+            X = 0; Y= 0;
+            Id = Guid.Empty;
+            Rectangle = new Rectangle();
+        }
     }
 }

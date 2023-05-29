@@ -12,7 +12,7 @@ namespace RectangleSearchAPI.DTOs.Request
 
         internal Coordinate ToCoordinate(Guid idRectangle)
         {
-            return new Coordinate
+            return new Coordinate()
             {
                 Id = Guid.NewGuid(),
                 X = X,

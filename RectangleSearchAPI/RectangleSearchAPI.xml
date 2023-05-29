@@ -30,6 +30,13 @@
             <param name="rectangleRequest"></param>
             <returns></returns>
         </member>
+        <member name="M:RectangleSearchAPI.Controllers.RectangleController.UpdateRectangle(RectangleSearchAPI.DTOs.Request.UpdateRectangleRequest)">
+            <summary>
+            Update all the values of a rectangle.
+            </summary>
+            <param name="rectangleRequest"></param>
+            <returns></returns>
+        </member>
         <member name="T:RectangleSearchAPI.Migrations._1InitialMigration">
             <inheritdoc />
         </member>

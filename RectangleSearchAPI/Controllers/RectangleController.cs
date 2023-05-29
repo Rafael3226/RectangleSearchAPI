@@ -95,7 +95,11 @@ namespace RectangleSearchAPI.Controllers
         #endregion
 
         #region PUT Actions
-
+        /// <summary>
+        /// Update all the values of a rectangle.
+        /// </summary>
+        /// <param name="rectangleRequest"></param>
+        /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -105,6 +109,28 @@ namespace RectangleSearchAPI.Controllers
             {
                 Rectangle rectangle = rectangleRequest.ToRectangle();
                 dbContext.UpdateRectangleAsync(rectangle);
+                await dbContext.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return UnprocessableEntity(new ErrorResponse(ex));
+            }
+
+        }
+
+        #endregion
+
+        #region DELETE Actions
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        public async Task<IActionResult> DeleteRectangle(Guid id)
+        {
+            try
+            {
+                dbContext.DeleteRectangleAsync(id);
                 await dbContext.SaveChangesAsync();
                 return NoContent();
             }

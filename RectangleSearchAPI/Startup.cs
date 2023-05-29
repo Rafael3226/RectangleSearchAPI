@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RectangleSearchAPI.Data;
+using RectangleSearchAPI.Seed;
 using System.Reflection;
 
 namespace RectangleSearchAPI
@@ -20,9 +21,8 @@ namespace RectangleSearchAPI
             services.AddControllers();
             services.AddEndpointsApiExplorer();
 
+            services.AddTransient<SqlServerSeeder>();
             services.AddDbContext<SqlServerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLServerConnectionString")));
-
-            /*services.AddControllers().AddNewtonsoftJson();*/
 
             services.AddSwaggerGen(c =>
             {
@@ -49,7 +49,7 @@ namespace RectangleSearchAPI
                 string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
                 c.IncludeXmlComments(xmlPath);
-            })/*.AddSwaggerGenNewtonsoftSuport()*/;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -59,6 +59,8 @@ namespace RectangleSearchAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                SqlServerSeeder.Seed(app);
             }
             else
             {

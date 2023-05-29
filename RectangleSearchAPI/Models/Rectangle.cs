@@ -10,5 +10,18 @@ namespace RectangleSearchAPI.Models
 
         public ICollection<Coordinate> Coordinates { get; set; }
 
+        public Rectangle(string name)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Coordinates = new List<Coordinate>();
+        }
+
+        public Rectangle()
+        {
+            Id = Guid.Empty;
+            Name = string.Empty;
+            Coordinates = new List<Coordinate>();
+        }
     }
 }
