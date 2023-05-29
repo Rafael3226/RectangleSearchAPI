@@ -26,13 +26,13 @@ namespace RectangleSearchAPI.Controllers
         #region POST Actions
 
         [HttpPost]
-        [Route("rectangles")]
-        public async Task<IActionResult> GetRectanglesFromCoordinates(CoordinatesRequest coordinatesRequest)
+        [Route("search")]
+        public async Task<IActionResult> SearchCoordinates(SearchCoordinatesRequest coordinatesRequest)
         {
             ICollection<Coordinate> coordinates = coordinatesRequest.ToCoordinates();
             ICollection<Rectangle> rectangles = await dbContext.GetRectanglesAsync();
 
-            CoordinatesResponse response = new CoordinatesResponse();
+            SearchCoordinatesResponse response = new SearchCoordinatesResponse();
 
             foreach (Coordinate coordinate in coordinates)
             {

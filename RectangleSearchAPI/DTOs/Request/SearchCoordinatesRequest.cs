@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RectangleSearchAPI.DTOs.Request
 {
-    public class CoordinatesRequest
+    public class SearchCoordinatesRequest
     {
         [Required]
         public ICollection<CoordinateRequest> Coordinates { get; set; }

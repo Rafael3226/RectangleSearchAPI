@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RectangleSearchAPI.DTOs.Response
 {
-    public class CoordinatesResponse
+    public class SearchCoordinatesResponse
     {
         public ICollection<RectanglesResponse> Coordinates { get; set; }
 
-        public CoordinatesResponse()
+        public SearchCoordinatesResponse()
         {
             Coordinates = new List<RectanglesResponse>();
         }

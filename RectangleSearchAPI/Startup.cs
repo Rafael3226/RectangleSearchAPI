@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RectangleSearchAPI.Authentication;
 using RectangleSearchAPI.Data;
 using RectangleSearchAPI.Seed;
 using System.Reflection;
@@ -59,8 +60,6 @@ namespace RectangleSearchAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
-
-                
             }
             else
             {
@@ -69,6 +68,7 @@ namespace RectangleSearchAPI
             SqlServerSeeder.Seed(app);
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseMiddleware<ApiKeyAuthMiddleware>();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
