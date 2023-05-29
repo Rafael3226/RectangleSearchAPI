@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace RectangleSearchAPI.Logic
+namespace RectangleSearchAPI.DTOs.Response
 {
-    public class ErrorResponse: ProblemDetails
+    public class ErrorResponse : ProblemDetails
     {
-        public ErrorResponse(Exception ex) {
+        public ErrorResponse(Exception ex)
+        {
             Type = ex.GetType().Name;
             Title = ex.Source;
             Detail = ex.Message;

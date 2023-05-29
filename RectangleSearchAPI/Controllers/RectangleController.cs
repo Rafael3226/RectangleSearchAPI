@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using RectangleSearchAPI.Data;
+using RectangleSearchAPI.DTOs.Request;
+using RectangleSearchAPI.DTOs.Response;
 using RectangleSearchAPI.Exceptions;
-using RectangleSearchAPI.Logic;
 using RectangleSearchAPI.Models;
 using System.Net.Mime;
 
@@ -15,8 +14,8 @@ namespace RectangleSearchAPI.Controllers
     [ApiController]
     public class RectangleController : ControllerBase
     {
-        private readonly RectangleSearchAPIDbContext dbContext;
-        public RectangleController(RectangleSearchAPIDbContext dbContex)
+        private readonly SqlServerDbContext dbContext;
+        public RectangleController(SqlServerDbContext dbContex)
         {
             dbContext = dbContex;  
         }
@@ -32,7 +31,11 @@ namespace RectangleSearchAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetRectangles([FromQuery] int count = 5)
         {
-            return Ok(await dbContext.GetRectanglesAsync(count));
+            ICollection<Rectangle> rectangles = await dbContext.GetRectanglesAsync(count);
+
+            ICollection<RectangleResponse> response = RectangleResponse.FromRectangles(rectangles);
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -48,9 +51,11 @@ namespace RectangleSearchAPI.Controllers
         {
             try
             {
-                RectangleModel rectangle = await dbContext.FindRectangleAsync(id);
-                return Ok(rectangle);
-            } catch (ItemNotFoundException ex)
+                Rectangle rectangle = await dbContext.FindRectangleAsync(id);
+                RectangleResponse response = RectangleResponse.FromRectangle(rectangle);
+                return Ok(response);
+            } 
+            catch (ItemNotFoundException ex)
             {
                 return NotFound(new ErrorResponse(ex));
             }
@@ -61,22 +66,24 @@ namespace RectangleSearchAPI.Controllers
         #region POST Actions
 
         /// <summary>
-        /// 
+        /// Save a new rectangle
         /// </summary>
-        /// <param name="coordinates"></param>
+        /// <param name="rectangleRequest"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        public async Task<IActionResult> AddRectangle(CoordinatesPair coordinates)
+        public async Task<IActionResult> AddRectangle(RectangleRequest rectangleRequest)
         {
             try {
-                RectangleModel rectangleModel = coordinates.ToRectangleModel();
-                dbContext.AddRectangleAsync(rectangleModel);
+                Rectangle rectangle = rectangleRequest.ToRectangle(); 
+                dbContext.AddRectangleAsync(rectangle);
                 await dbContext.SaveChangesAsync();
 
-                string resourceUri = Url.Action("GetRectangle", new { id = rectangleModel.Id }) ?? string.Empty;
-                return Created(resourceUri, rectangleModel);
+                RectangleResponse response = RectangleResponse.FromRectangle(rectangle);
+                string resourceUri = Url.Action("GetRectangle", new { id = rectangle.Id }) ?? string.Empty;
+
+                return Created(resourceUri, response);
             }
             catch(ArgumentException ex)
             {
@@ -89,7 +96,24 @@ namespace RectangleSearchAPI.Controllers
 
         #region PUT Actions
 
-        /*[HttpPut]*/
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        public async Task<IActionResult> UpdateRectangle(UpdateRectangleRequest rectangleRequest)
+        {
+            try
+            {
+                Rectangle rectangle = rectangleRequest.ToRectangle();
+                dbContext.UpdateRectangleAsync(rectangle);
+                await dbContext.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return UnprocessableEntity(new ErrorResponse(ex));
+            }
+
+        }
 
         #endregion
     }
