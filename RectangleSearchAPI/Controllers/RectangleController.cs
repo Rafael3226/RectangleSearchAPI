@@ -122,7 +122,11 @@ namespace RectangleSearchAPI.Controllers
         #endregion
 
         #region DELETE Actions
-
+        /// <summary>
+        /// Delete a Rectangle
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]

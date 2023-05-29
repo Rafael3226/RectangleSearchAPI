@@ -60,13 +60,13 @@ namespace RectangleSearchAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
 
-                SqlServerSeeder.Seed(app);
+                
             }
             else
             {
                 app.UseExceptionHandler("/error");
             }
-
+            SqlServerSeeder.Seed(app);
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
