@@ -19,10 +19,10 @@ namespace RectangleSearchAPI.Test.Controllers
         {
             // Arrange
             int count = 5;
-            IEnumerable<RectangleModel> fakeRectangles = A.CollectionOfDummy<RectangleModel>(count).AsEnumerable();
-            IEnumerable<CoordinateModel> fakeCoordinates = A.CollectionOfDummy<CoordinateModel>(20).AsEnumerable();
+            IEnumerable<Rectangle> fakeRectangles = A.CollectionOfDummy<Rectangle>(count).AsEnumerable();
+            IEnumerable<Coordinate> fakeCoordinates = A.CollectionOfDummy<Coordinate>(20).AsEnumerable();
 
-            var dbContex = A.Fake<RectangleSearchAPIDbContext>();
+            var dbContex = A.Fake<SqlServerDbContext>();
             A.CallTo(() => dbContex.GetRectanglesAsync(5)).Returns(Task.FromResult(fakeRectangles));
             RectangleController rectangleController = new RectangleController(dbContex);
             // Act

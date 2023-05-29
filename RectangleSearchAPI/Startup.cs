@@ -20,7 +20,7 @@ namespace RectangleSearchAPI
             services.AddControllers();
             services.AddEndpointsApiExplorer();
 
-            services.AddDbContext<RectangleSearchAPIDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLServerConnectionString")));
+            services.AddDbContext<SqlServerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLServerConnectionString")));
 
             /*services.AddControllers().AddNewtonsoftJson();*/
 

@@ -11,9 +11,9 @@ using RectangleSearchAPI.Data;
 
 namespace RectangleSearchAPI.Migrations
 {
-    [DbContext(typeof(RectangleSearchAPIDbContext))]
-    [Migration("20230528085328_Firts Migration")]
-    partial class FirtsMigration
+    [DbContext(typeof(SqlServerDbContext))]
+    [Migration("20230529032411_[2] Change Ids")]
+    partial class _2ChangeIds
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,10 +25,13 @@ namespace RectangleSearchAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RectangleSearchAPI.Models.CoordinateModel", b =>
+            modelBuilder.Entity("RectangleSearchAPI.Models.Coordinate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdRectangle")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("X")
@@ -39,57 +42,40 @@ namespace RectangleSearchAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdRectangle");
+
                     b.ToTable("Coordinates");
                 });
 
-            modelBuilder.Entity("RectangleSearchAPI.Models.RectangleModel", b =>
+            modelBuilder.Entity("RectangleSearchAPI.Models.Rectangle", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BottomRightId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TopLeftCoordinateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TopLeftId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BottomRightId")
-                        .IsUnique();
-
-                    b.HasIndex("TopLeftCoordinateId");
 
                     b.ToTable("Rectangles");
                 });
 
-            modelBuilder.Entity("RectangleSearchAPI.Models.RectangleModel", b =>
+            modelBuilder.Entity("RectangleSearchAPI.Models.Coordinate", b =>
                 {
-                    b.HasOne("RectangleSearchAPI.Models.CoordinateModel", "BottomRightCoordinate")
-                        .WithOne("Rectangle")
-                        .HasForeignKey("RectangleSearchAPI.Models.RectangleModel", "BottomRightId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("RectangleSearchAPI.Models.CoordinateModel", "TopLeftCoordinate")
-                        .WithMany()
-                        .HasForeignKey("TopLeftCoordinateId")
+                    b.HasOne("RectangleSearchAPI.Models.Rectangle", "Rectangle")
+                        .WithMany("Coordinates")
+                        .HasForeignKey("IdRectangle")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BottomRightCoordinate");
-
-                    b.Navigation("TopLeftCoordinate");
+                    b.Navigation("Rectangle");
                 });
 
-            modelBuilder.Entity("RectangleSearchAPI.Models.CoordinateModel", b =>
+            modelBuilder.Entity("RectangleSearchAPI.Models.Rectangle", b =>
                 {
-                    b.Navigation("Rectangle")
-                        .IsRequired();
+                    b.Navigation("Coordinates");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,55 +23,35 @@
             <param name="id">Rectangle ID</param>
             <returns>The Rectangle with the ID</returns>
         </member>
-        <member name="M:RectangleSearchAPI.Controllers.RectangleController.AddRectangle(RectangleSearchAPI.Logic.CoordinatesPair)">
+        <member name="M:RectangleSearchAPI.Controllers.RectangleController.AddRectangle(RectangleSearchAPI.DTOs.Request.RectangleRequest)">
             <summary>
-            Save a rectangle.
+            Save a new rectangle
             </summary>
-            <param name="coordinatesArray">The Coordinate array, just 2 coordinates</param>
-            <returns>The created rectangle</returns>
-        </member>
-        <member name="M:RectangleSearchAPI.Data.RectangleSearchAPIDbContext.FindRectangleAsync(System.Guid)">
-            <summary>
-            
-            </summary>
-            <param name="id"></param>
+            <param name="rectangleRequest"></param>
             <returns></returns>
-            <exception cref="T:RectangleSearchAPI.Exceptions.ItemNotFoundException"></exception>
         </member>
-        <member name="T:RectangleSearchAPI.Migrations.FirtsMigration">
+        <member name="T:RectangleSearchAPI.Migrations._1InitialMigration">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.FirtsMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations._1InitialMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.FirtsMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations._1InitialMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.FirtsMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations._1InitialMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="T:RectangleSearchAPI.Migrations.Changerelationstowithmany">
+        <member name="T:RectangleSearchAPI.Migrations._2ChangeIds">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.Changerelationstowithmany.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations._2ChangeIds.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.Changerelationstowithmany.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations._2ChangeIds.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:RectangleSearchAPI.Migrations.Changerelationstowithmany.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates">
-            <inheritdoc />
-        </member>
-        <member name="M:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:RectangleSearchAPI.Migrations.Ignoretherectanglerelationshipincoordinates.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:RectangleSearchAPI.Migrations._2ChangeIds.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
     </members>
