@@ -11,19 +11,23 @@
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            if (!context.Request.Headers.TryGetValue(AuthConstants.ApiKeyHeaderName, out var extractedApiKey))
+            bool authOn = _configuration.GetValue<bool>("Authentication:On");
+            if (authOn)
             {
-                context.Response.StatusCode = 401;
-                await context.Response.WriteAsync("API Key missing");
-                return;
-            }
-            string apiKey = _configuration.GetValue<string>(key:AuthConstants.ApiKeySectionName);
+                if (!context.Request.Headers.TryGetValue(AuthConstants.ApiKeyHeaderName, out var extractedApiKey))
+                {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync("API Key missing");
+                    return;
+                }
+                string apiKey = _configuration.GetValue<string>(AuthConstants.ApiKeySectionName);
 
-            if (!apiKey.Equals(extractedApiKey))
-            {
-                context.Response.StatusCode = 401;
-                await context.Response.WriteAsync("Inva1id API Key");
-                return;
+                if (!apiKey.Equals(extractedApiKey))
+                {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync("Inva1id API Key");
+                    return;
+                }
             }
 
             await _next(context);
